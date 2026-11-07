@@ -106,10 +106,12 @@ textarea { resize: vertical; }
 }
 
 /* Dashboard */
-.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.toolbar h1 { margin: 0; }
-.toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.toolbar h1 { margin: 0; text-align: center; }
+.who { text-align: center; margin: 4px 0 12px; }
+/* Fixed physical positions (also in RTL): New request on the left, Log out on the right */
+.toolbar-actions { direction: ltr; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
 .toolbar-actions .btn { margin-top: 0; }
+[dir=rtl] .toolbar-actions .btn { direction: rtl; }
 
 .table-wrap { overflow-x: auto; padding: 0; }
 table { width: 100%; border-collapse: collapse; }
@@ -151,10 +153,7 @@ tr.clickable:hover { background: #d4ecfa; }
   .btn, .chip, .lang-switch a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
   .lang-switch a { min-height: 36px; padding: 4px 10px; }
 
-  .toolbar { flex-direction: column; align-items: stretch; }
-  .toolbar-actions { flex-direction: column; align-items: stretch; }
-  .toolbar-actions .btn, .toolbar-actions .inline { width: 100%; }
-  .who { text-align: center; }
+  .toolbar-actions .btn { padding-inline: 12px; }
 
   .form-actions { flex-direction: column; }
   .form-actions .btn { width: 100%; }
