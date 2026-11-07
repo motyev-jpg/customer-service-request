@@ -15,6 +15,22 @@ A general-purpose web dashboard where a customer can see the history and status 
 - **Design.** Logo at the top left, light blue background, black lines, brown and purple text.
 - **Mobile friendly.** On narrow screens the requests table becomes a list of cards, and fields and buttons are sized for touch.
 
+## Live demo
+
+A static, browser-only version of the dashboard is published with GitHub Pages:
+
+https://motyev-jpg.github.io/customer-service-request/
+
+It has the same screens, languages and demo data. New requests are saved in your browser only (`localStorage`), and the *Reset demo data* button restores the initial data. Use the demo phone numbers shown on the login screen.
+
+The demo lives in `docs/`. Its data files, CSS and logo are generated from the Flask app, so after changing `config/`, the demo data in `db.py`, or `static/css/style.css`, run:
+
+```powershell
+.\.venv\Scripts\python tools\build_static.py
+```
+
+A test fails if `docs/` is out of date. To run the demo locally: `.\.venv\Scripts\python -m http.server -d docs`.
+
 ## Tech stack
 
 Python, Flask, SQLite, plain HTML/CSS/JavaScript.
@@ -54,6 +70,8 @@ db.py             SQLite access and demo data
 config/           Categories, statuses, translations
 templates/        HTML templates
 static/           CSS, JavaScript, logo
+docs/             Static browser-only demo (GitHub Pages)
+tools/            build_static.py: generates the demo data in docs/
 tests/            Automated tests
 practice.md       How we build (workflow, git rules)
 concept.md        What we build (requirements)

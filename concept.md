@@ -71,6 +71,13 @@ The user can only view statuses. Changing status is not part of this version.
 - Demo content: several fake phone numbers, each with a different number of requests, in all statuses, in both Hebrew and English descriptions.
 - New requests submitted in the UI are saved to the same database.
 
+## Static demo (GitHub Pages)
+
+- A second, browser-only version of the dashboard lives in `docs/` and is published with GitHub Pages from `main`, folder `/docs`, so it can be viewed without installing anything.
+- It has the same screens, texts, languages, layout and demo data as the Flask app. The Flask app stays the real implementation.
+- New requests are saved in the browser's `localStorage` only. A "Reset demo data" button restores the initial data. A banner says it is a static demo.
+- `docs/data/*`, `docs/css/style.css` and `docs/assets/logo.svg` are generated from the Flask app's config, translations, demo data, CSS and logo by `tools/build_static.py`. A test fails if they are out of date.
+
 ## Out of scope for this version
 
 - Real authentication, passwords, or SMS verification.

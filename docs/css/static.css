@@ -1,0 +1,10 @@
+/* Styles used only by the static demo (the rest is shared with the Flask app) */
+.demo-banner {
+  background: #fff3c4;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+.footer-actions { text-align: center; margin-top: 24px; }
+.footer-actions .btn { margin-top: 0; }
