@@ -9,6 +9,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import (Flask, abort, flash, g, redirect, render_template, request,
                    session, url_for)
+from markupsafe import Markup
 
 import db
 
@@ -99,9 +100,11 @@ def create_app(db_path=None):
 
     def fmt_date(value):
         try:
-            return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M")
+            text = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M")
         except (TypeError, ValueError):
-            return value or ""
+            text = value or ""
+        # Keep date and time in left-to-right order inside RTL pages
+        return Markup('<bdi dir="ltr">{}</bdi>').format(text)
 
     # ---- routes ------------------------------------------------------------
     @app.route("/")
@@ -137,20 +140,8 @@ def create_app(db_path=None):
     @app.route("/dashboard")
     def dashboard():
         require_login()
-        status = request.args.get("status", "")
-        category = request.args.get("category", "")
-        q = request.args.get("q", "").strip()
-        if status not in statuses:
-            status = ""
-        if category not in categories:
-            category = ""
-        rows = db.list_requests(conn(), current_phone(), status or None,
-                                category or None, q or None)
-        counts = db.status_counts(conn(), current_phone())
-        return render_template(
-            "dashboard.html", rows=rows, counts=counts, total=sum(counts.values()),
-            statuses=cfg["statuses"], categories=cfg["categories"],
-            f_status=status, f_category=category, f_q=q)
+        rows = db.list_requests(conn(), current_phone())
+        return render_template("dashboard.html", rows=rows)
 
     @app.route("/requests/new", methods=["GET", "POST"])
     def new_request():

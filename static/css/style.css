@@ -56,7 +56,7 @@ a { color: var(--accent); }
 
 /* Forms */
 label { display: block; margin: 14px 0 4px; font-weight: 600; }
-input[type=text], input[type=tel], input[type=search], select, textarea {
+input[type=text], input[type=tel], select, textarea {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--line);
@@ -106,30 +106,12 @@ textarea { resize: vertical; }
 }
 
 /* Dashboard */
-.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-.toolbar h1 { margin: 0; }
-.toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.toolbar h1 { margin: 0; text-align: center; }
+.who { text-align: center; margin: 4px 0 12px; }
+/* Fixed physical positions (also in RTL): New request on the left, Log out on the right */
+.toolbar-actions { direction: ltr; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
 .toolbar-actions .btn { margin-top: 0; }
-
-.counters { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
-.counter {
-  flex: 1 1 130px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background: var(--c, var(--card));
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-.counter strong { font-size: 1.6rem; color: var(--accent); }
-
-.filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
-.filters > div { min-width: 150px; }
-.filters .grow { flex: 1 1 200px; }
-.filters label { margin-top: 0; }
-.filter-actions { display: flex; gap: 8px; }
-.filter-actions .btn { margin-top: 0; }
+[dir=rtl] .toolbar-actions .btn { direction: rtl; }
 
 .table-wrap { overflow-x: auto; padding: 0; }
 table { width: 100%; border-collapse: collapse; }
@@ -157,3 +139,40 @@ tr.clickable:hover { background: #d4ecfa; }
 .timeline li { display: flex; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .when { color: var(--text); }
 .form-actions { display: flex; gap: 10px; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .topbar { padding: 8px 12px; }
+  .logo span { display: none; }
+  .page { padding: 12px; }
+  .card { padding: 14px; }
+
+  /* 16px+ fields prevent iOS zoom on focus; 44px touch targets */
+  input[type=text], input[type=tel], select, textarea { font-size: 16px; min-height: 44px; }
+  .btn, .chip, .lang-switch a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .lang-switch a { min-height: 36px; padding: 4px 10px; }
+
+  .toolbar-actions .btn { padding-inline: 12px; }
+
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
+  .card.narrow .btn { width: 100%; }
+
+  /* Table becomes a list of cards */
+  .table-wrap { background: none; border: 0; padding: 0; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+  tr.clickable {
+    margin-bottom: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 0;
+  }
+  td { border: 0; padding: 6px 12px; display: flex; justify-content: space-between; gap: 12px; text-align: end; }
+  td::before { content: attr(data-label); font-weight: 600; color: var(--accent); text-align: start; }
+
+  .details { grid-template-columns: 1fr; gap: 2px; }
+  .details dd { margin-bottom: 10px; }
+}
