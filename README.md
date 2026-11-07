@@ -7,11 +7,13 @@ A general-purpose web dashboard where a customer can see the history and status 
 ## Features
 
 - **Login by phone number.** The phone number is the user ID. Demo numbers are shown on the login screen.
-- **My requests.** Table of all the user's requests (newest first) with category, sub-category, status and dates.
+- **My requests.** Centered title, with the *New request* button on the left and *Log out* on the right (in both languages). Below, a table of all the user's requests (newest first) with category, sub-category, status and dates.
   - Click a request to see its details and status history.
+  - No filters or statistics in this version.
 - **New request.** Category and sub-category from built-in lists (required), plus an optional free description. Requests start with status *Open* and cannot be edited after sending.
 - **English / Hebrew.** Switch at the top right. Hebrew uses a right-to-left layout and translates categories and statuses too.
 - **Design.** Logo at the top left, light blue background, black lines, brown and purple text.
+- **Mobile friendly.** On narrow screens the requests table becomes a list of cards, and fields and buttons are sized for touch.
 
 ## Tech stack
 
