@@ -87,4 +87,4 @@ def test_language_switch_to_hebrew(client):
     login(client)
     client.get("/lang/he")
     html = client.get("/dashboard").get_data(as_text=True)
-    assert 'dir="rtl"' in html and "הבקשות שלי" in html and "בטיפול" in html
+    assert 'dir="rtl"' in html and "הבקשות שלי" in html and "ממתינה ללקוח" in html
