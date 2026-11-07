@@ -56,7 +56,7 @@ a { color: var(--accent); }
 
 /* Forms */
 label { display: block; margin: 14px 0 4px; font-weight: 600; }
-input[type=text], input[type=tel], input[type=search], select, textarea {
+input[type=text], input[type=tel], select, textarea {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--line);
@@ -111,26 +111,6 @@ textarea { resize: vertical; }
 .toolbar-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .toolbar-actions .btn { margin-top: 0; }
 
-.counters { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
-.counter {
-  flex: 1 1 130px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background: var(--c, var(--card));
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-.counter strong { font-size: 1.6rem; color: var(--accent); }
-
-.filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
-.filters > div { min-width: 150px; }
-.filters .grow { flex: 1 1 200px; }
-.filters label { margin-top: 0; }
-.filter-actions { display: flex; gap: 8px; }
-.filter-actions .btn { margin-top: 0; }
-
 .table-wrap { overflow-x: auto; padding: 0; }
 table { width: 100%; border-collapse: collapse; }
 th, td { padding: 10px 12px; border: 1px solid var(--line); text-align: start; }
@@ -167,7 +147,7 @@ tr.clickable:hover { background: #d4ecfa; }
   .card { padding: 14px; }
 
   /* 16px+ fields prevent iOS zoom on focus; 44px touch targets */
-  input[type=text], input[type=tel], input[type=search], select, textarea { font-size: 16px; min-height: 44px; }
+  input[type=text], input[type=tel], select, textarea { font-size: 16px; min-height: 44px; }
   .btn, .chip, .lang-switch a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
   .lang-switch a { min-height: 36px; padding: 4px 10px; }
 
@@ -175,12 +155,6 @@ tr.clickable:hover { background: #d4ecfa; }
   .toolbar-actions { flex-direction: column; align-items: stretch; }
   .toolbar-actions .btn, .toolbar-actions .inline { width: 100%; }
   .who { text-align: center; }
-
-  .counters { display: grid; grid-template-columns: 1fr 1fr; }
-
-  .filters { flex-direction: column; align-items: stretch; }
-  .filters > div, .filters .grow { min-width: 0; width: 100%; flex: none; }
-  .filter-actions .btn { flex: 1; }
 
   .form-actions { flex-direction: column; }
   .form-actions .btn { width: 100%; }

@@ -110,31 +110,10 @@ def _seed(conn):
             [(cur.lastrowid, s, t) for s, t in times])
 
 
-def _like_escape(text):
-    return text.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
-
-
-def list_requests(conn, phone, status=None, category=None, q=None):
-    sql = "SELECT * FROM requests WHERE phone = ?"
-    args = [phone]
-    if status:
-        sql += " AND status = ?"
-        args.append(status)
-    if category:
-        sql += " AND category = ?"
-        args.append(category)
-    if q:
-        sql += " AND description LIKE ? ESCAPE '\\'"
-        args.append(f"%{_like_escape(q)}%")
-    sql += " ORDER BY created_at DESC, id DESC"
-    return conn.execute(sql, args).fetchall()
-
-
-def status_counts(conn, phone):
-    rows = conn.execute(
-        "SELECT status, COUNT(*) AS n FROM requests WHERE phone = ? GROUP BY status",
+def list_requests(conn, phone):
+    return conn.execute(
+        "SELECT * FROM requests WHERE phone = ? ORDER BY created_at DESC, id DESC",
         (phone,)).fetchall()
-    return {r["status"]: r["n"] for r in rows}
 
 
 def get_request(conn, request_id, phone):

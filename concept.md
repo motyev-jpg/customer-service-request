@@ -22,10 +22,9 @@ A general-purpose dashboard for customers to view the history of their service r
 ### 2. Dashboard (after login)
 - **My requests:** table of all requests for this phone number, newest first.
   - Columns: request number, opened date, category, sub-category, status, last update.
-  - Filter by status and by category. Search in the description.
   - Click a row to see full details: description and status history.
+  - No filters, search, or statistics section in this version.
 - **New request** button, opens the new request form.
-- Summary counters at the top: total requests, and count per status.
 
 ### 3. New request
 - Category: required, chosen from a built-in list.

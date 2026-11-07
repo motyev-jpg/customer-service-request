@@ -55,12 +55,9 @@ def test_empty_history_for_new_number(client):
     assert "No service requests found." in html
 
 
-def test_filter_by_status_and_search(client):
-    login(client)
-    html = client.get("/dashboard?status=closed").get_data(as_text=True)
-    assert "SR-0001" in html and "SR-0002" not in html
-    html = client.get("/dashboard?q=address").get_data(as_text=True)
-    assert "SR-0003" in html and "SR-0001" not in html
+def test_dashboard_has_no_filters_or_statistics(client):
+    html = login(client).get_data(as_text=True)
+    assert 'class="filters' not in html and 'class="counters' not in html
 
 
 def test_create_request(client):
