@@ -1,0 +1,266 @@
+{
+  "phones": [
+    "0500000001",
+    "0500000002",
+    "0500000003",
+    "0500000004"
+  ],
+  "requests": [
+    {
+      "phone": "0500000001",
+      "category": "billing",
+      "subcategory": "invoice_question",
+      "description": "The March invoice shows a charge I do not recognize.",
+      "history": [
+        [
+          "open",
+          40
+        ],
+        [
+          "in_progress",
+          38
+        ],
+        [
+          "resolved",
+          35
+        ],
+        [
+          "closed",
+          30
+        ]
+      ]
+    },
+    {
+      "phone": "0500000001",
+      "category": "technical",
+      "subcategory": "cannot_connect",
+      "description": "החיבור לשירות נופל כל כמה דקות מאז אתמול בערב.",
+      "history": [
+        [
+          "open",
+          6
+        ],
+        [
+          "in_progress",
+          5
+        ],
+        [
+          "waiting_customer",
+          4
+        ]
+      ]
+    },
+    {
+      "phone": "0500000001",
+      "category": "account",
+      "subcategory": "update_details",
+      "description": "Please update my address on the account.",
+      "history": [
+        [
+          "open",
+          12
+        ],
+        [
+          "in_progress",
+          11
+        ],
+        [
+          "resolved",
+          9
+        ]
+      ]
+    },
+    {
+      "phone": "0500000001",
+      "category": "general",
+      "subcategory": "suggestion",
+      "description": "הצעה: להוסיף אפשרות לצפות בחשבוניות קודמות.",
+      "history": [
+        [
+          "open",
+          2
+        ]
+      ]
+    },
+    {
+      "phone": "0500000002",
+      "category": "billing",
+      "subcategory": "refund_request",
+      "description": "I was charged twice for the same service. Requesting a refund.",
+      "history": [
+        [
+          "open",
+          20
+        ],
+        [
+          "in_progress",
+          18
+        ],
+        [
+          "waiting_customer",
+          15
+        ],
+        [
+          "in_progress",
+          13
+        ],
+        [
+          "resolved",
+          10
+        ]
+      ]
+    },
+    {
+      "phone": "0500000002",
+      "category": "technical",
+      "subcategory": "slow_performance",
+      "description": "הגלישה איטית מאוד בשעות הערב.",
+      "history": [
+        [
+          "open",
+          3
+        ],
+        [
+          "in_progress",
+          1
+        ]
+      ]
+    },
+    {
+      "phone": "0500000002",
+      "category": "account",
+      "subcategory": "access_problem",
+      "description": "I cannot log in to my account after the password reset.",
+      "history": [
+        [
+          "open",
+          50
+        ],
+        [
+          "in_progress",
+          49
+        ],
+        [
+          "resolved",
+          48
+        ],
+        [
+          "closed",
+          40
+        ]
+      ]
+    },
+    {
+      "phone": "0500000002",
+      "category": "general",
+      "subcategory": "complaint",
+      "description": "המתנתי 40 דקות בטלפון ללא מענה.",
+      "history": [
+        [
+          "open",
+          8
+        ],
+        [
+          "in_progress",
+          7
+        ],
+        [
+          "resolved",
+          5
+        ]
+      ]
+    },
+    {
+      "phone": "0500000003",
+      "category": "technical",
+      "subcategory": "equipment_fault",
+      "description": "The router shows a red light and does not restart.",
+      "history": [
+        [
+          "open",
+          1
+        ]
+      ]
+    },
+    {
+      "phone": "0500000003",
+      "category": "billing",
+      "subcategory": "payment_issue",
+      "description": "התשלום בכרטיס האשראי נדחה למרות שיש כיסוי.",
+      "history": [
+        [
+          "open",
+          9
+        ],
+        [
+          "in_progress",
+          8
+        ],
+        [
+          "waiting_customer",
+          7
+        ]
+      ]
+    },
+    {
+      "phone": "0500000003",
+      "category": "account",
+      "subcategory": "close_account",
+      "description": "אני מבקש לסגור את החשבון בסוף החודש.",
+      "history": [
+        [
+          "open",
+          30
+        ],
+        [
+          "in_progress",
+          29
+        ],
+        [
+          "resolved",
+          27
+        ],
+        [
+          "closed",
+          25
+        ]
+      ]
+    },
+    {
+      "phone": "0500000003",
+      "category": "general",
+      "subcategory": "other",
+      "description": "",
+      "history": [
+        [
+          "open",
+          4
+        ],
+        [
+          "in_progress",
+          3
+        ]
+      ]
+    },
+    {
+      "phone": "0500000003",
+      "category": "technical",
+      "subcategory": "cannot_connect",
+      "description": "No internet since this morning, all devices affected.",
+      "history": [
+        [
+          "open",
+          14
+        ],
+        [
+          "in_progress",
+          14
+        ],
+        [
+          "resolved",
+          13
+        ]
+      ]
+    }
+  ]
+}

@@ -22,3 +22,8 @@ def test_docs_match_generated_output(tmp_path):
 def test_translation_keys_match_between_languages():
     tr = json.loads((ROOT / "docs" / "data" / "translations.json").read_text(encoding="utf-8"))
     assert set(tr["en"]) == set(tr["he"])
+
+
+def test_gitignore_does_not_exclude_docs_data():
+    lines = (ROOT / ".gitignore").read_text(encoding="utf-8").split()
+    assert "data/" not in lines, "use /data/ so docs/data/ is not ignored"
