@@ -67,12 +67,12 @@
       {% for r in rows %}
       {% set st = status_info(r.status) %}
       <tr class="clickable" data-href="{{ url_for('request_detail', request_id=r.id) }}">
-        <td><a href="{{ url_for('request_detail', request_id=r.id) }}">{{ request_no(r.id) }}</a></td>
-        <td>{{ fmt_date(r.created_at) }}</td>
-        <td>{{ category_name(r.category) }}</td>
-        <td>{{ sub_name(r.category, r.subcategory) }}</td>
-        <td><span class="badge" style="background: {{ st.color }}">{{ st.name }}</span></td>
-        <td>{{ fmt_date(r.updated_at) }}</td>
+        <td data-label="{{ t('request_no') }}"><a href="{{ url_for('request_detail', request_id=r.id) }}">{{ request_no(r.id) }}</a></td>
+        <td data-label="{{ t('opened') }}">{{ fmt_date(r.created_at) }}</td>
+        <td data-label="{{ t('category') }}">{{ category_name(r.category) }}</td>
+        <td data-label="{{ t('subcategory') }}">{{ sub_name(r.category, r.subcategory) }}</td>
+        <td data-label="{{ t('status') }}"><span class="badge" style="background: {{ st.color }}">{{ st.name }}</span></td>
+        <td data-label="{{ t('last_update') }}">{{ fmt_date(r.updated_at) }}</td>
       </tr>
       {% endfor %}
     </tbody>

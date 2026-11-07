@@ -157,3 +157,49 @@ tr.clickable:hover { background: #d4ecfa; }
 .timeline li { display: flex; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .when { color: var(--text); }
 .form-actions { display: flex; gap: 10px; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .topbar { padding: 8px 12px; }
+  .logo span { display: none; }
+  .page { padding: 12px; }
+  .card { padding: 14px; }
+
+  /* 16px+ fields prevent iOS zoom on focus; 44px touch targets */
+  input[type=text], input[type=tel], input[type=search], select, textarea { font-size: 16px; min-height: 44px; }
+  .btn, .chip, .lang-switch a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .lang-switch a { min-height: 36px; padding: 4px 10px; }
+
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar-actions { flex-direction: column; align-items: stretch; }
+  .toolbar-actions .btn, .toolbar-actions .inline { width: 100%; }
+  .who { text-align: center; }
+
+  .counters { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .filters { flex-direction: column; align-items: stretch; }
+  .filters > div, .filters .grow { min-width: 0; width: 100%; flex: none; }
+  .filter-actions .btn { flex: 1; }
+
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { width: 100%; }
+  .card.narrow .btn { width: 100%; }
+
+  /* Table becomes a list of cards */
+  .table-wrap { background: none; border: 0; padding: 0; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+  tr.clickable {
+    margin-bottom: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 0;
+  }
+  td { border: 0; padding: 6px 12px; display: flex; justify-content: space-between; gap: 12px; text-align: end; }
+  td::before { content: attr(data-label); font-weight: 600; color: var(--accent); text-align: start; }
+
+  .details { grid-template-columns: 1fr; gap: 2px; }
+  .details dd { margin-bottom: 10px; }
+}

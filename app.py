@@ -9,6 +9,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import (Flask, abort, flash, g, redirect, render_template, request,
                    session, url_for)
+from markupsafe import Markup
 
 import db
 
@@ -99,9 +100,11 @@ def create_app(db_path=None):
 
     def fmt_date(value):
         try:
-            return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M")
+            text = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M")
         except (TypeError, ValueError):
-            return value or ""
+            text = value or ""
+        # Keep date and time in left-to-right order inside RTL pages
+        return Markup('<bdi dir="ltr">{}</bdi>').format(text)
 
     # ---- routes ------------------------------------------------------------
     @app.route("/")
