@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ t('login_title') }}</h1>
+  <p>{{ t('login_prompt') }}</p>
+  {% if error %}<div class="error">{{ t(error) }}</div>{% endif %}
+  <form method="post" action="{{ url_for('login') }}">
+    <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+    <label for="phone">{{ t('phone') }}</label>
+    <input id="phone" name="phone" type="tel" inputmode="tel" required autofocus
+           dir="ltr" placeholder="{{ t('phone_placeholder') }}">
+    <button type="submit" class="btn">{{ t('continue') }}</button>
+  </form>
+
+  <div class="demo">
+    <p>{{ t('demo_phones') }}</p>
+    <ul>
+      {% for p in demo_phones %}
+      <li><button type="button" class="chip" data-phone="{{ p }}" dir="ltr">{{ p }}</button></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

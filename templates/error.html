@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <p class="error">{{ t(message_key) }}</p>
+  <a class="btn" href="{{ url_for('index') }}">{{ t('back') }}</a>
+</section>
+{% endblock %}

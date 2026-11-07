@@ -1,0 +1,51 @@
+{
+  "categories": [
+    {
+      "id": "billing",
+      "en": "Billing",
+      "he": "חיוב",
+      "subcategories": [
+        { "id": "invoice_question", "en": "Invoice question", "he": "שאלה על חשבונית" },
+        { "id": "payment_issue", "en": "Payment issue", "he": "בעיית תשלום" },
+        { "id": "refund_request", "en": "Refund request", "he": "בקשת החזר" }
+      ]
+    },
+    {
+      "id": "technical",
+      "en": "Technical support",
+      "he": "תמיכה טכנית",
+      "subcategories": [
+        { "id": "cannot_connect", "en": "Cannot connect", "he": "אין חיבור" },
+        { "id": "slow_performance", "en": "Slow performance", "he": "ביצועים איטיים" },
+        { "id": "equipment_fault", "en": "Equipment fault", "he": "תקלת ציוד" }
+      ]
+    },
+    {
+      "id": "account",
+      "en": "Account",
+      "he": "חשבון",
+      "subcategories": [
+        { "id": "update_details", "en": "Update details", "he": "עדכון פרטים" },
+        { "id": "close_account", "en": "Close account", "he": "סגירת חשבון" },
+        { "id": "access_problem", "en": "Access problem", "he": "בעיית גישה" }
+      ]
+    },
+    {
+      "id": "general",
+      "en": "General",
+      "he": "כללי",
+      "subcategories": [
+        { "id": "complaint", "en": "Complaint", "he": "תלונה" },
+        { "id": "suggestion", "en": "Suggestion", "he": "הצעה" },
+        { "id": "other", "en": "Other", "he": "אחר" }
+      ]
+    }
+  ],
+  "statuses": [
+    { "id": "open", "en": "Open", "he": "פתוחה", "color": "#ffe08a" },
+    { "id": "in_progress", "en": "In progress", "he": "בטיפול", "color": "#ffc18a" },
+    { "id": "waiting_customer", "en": "Waiting for customer", "he": "ממתינה ללקוח", "color": "#e3c4f2" },
+    { "id": "resolved", "en": "Resolved", "he": "נפתרה", "color": "#bfe8b8" },
+    { "id": "closed", "en": "Closed", "he": "סגורה", "color": "#d9d9d9" }
+  ]
+}

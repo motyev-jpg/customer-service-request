@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ lang }}" dir="{{ dir }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ t('app_title') }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='assets/logo.svg') }}" alt="{{ t('logo_alt') }}">
+      <span>{{ t('app_title') }}</span>
+    </a>
+    <nav class="lang-switch" aria-label="Language">
+      <a href="{{ url_for('set_lang', code='en', next=next_path) }}"
+         class="{{ 'active' if lang == 'en' }}" lang="en">English</a>
+      <a href="{{ url_for('set_lang', code='he', next=next_path) }}"
+         class="{{ 'active' if lang == 'he' }}" lang="he">עברית</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    {% with messages = get_flashed_messages() %}
+      {% for m in messages %}<div class="notice">{{ t(m) }}</div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

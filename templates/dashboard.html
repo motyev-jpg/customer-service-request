@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="toolbar">
+  <h1>{{ t('my_requests') }}</h1>
+  <div class="toolbar-actions">
+    <span class="who">{{ t('signed_in_as') }}: <bdi dir="ltr">{{ phone }}</bdi></span>
+    <a class="btn" href="{{ url_for('new_request') }}">+ {{ t('new_request') }}</a>
+    <form method="post" action="{{ url_for('logout') }}" class="inline">
+      <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+      <button type="submit" class="btn btn-secondary">{{ t('logout') }}</button>
+    </form>
+  </div>
+</div>
+
+<section class="counters">
+  <div class="counter"><strong>{{ total }}</strong><span>{{ t('total') }}</span></div>
+  {% for s in statuses %}
+  <div class="counter" style="--c: {{ s.color }}">
+    <strong>{{ counts.get(s.id, 0) }}</strong><span>{{ localized(s) }}</span>
+  </div>
+  {% endfor %}
+</section>
+
+<form method="get" class="filters card">
+  <div>
+    <label for="status">{{ t('status') }}</label>
+    <select id="status" name="status">
+      <option value="">{{ t('all') }}</option>
+      {% for s in statuses %}
+      <option value="{{ s.id }}" {{ 'selected' if s.id == f_status }}>{{ localized(s) }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
+    <label for="category">{{ t('category') }}</label>
+    <select id="category" name="category">
+      <option value="">{{ t('all') }}</option>
+      {% for c in categories %}
+      <option value="{{ c.id }}" {{ 'selected' if c.id == f_category }}>{{ localized(c) }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="grow">
+    <label for="q">{{ t('search') }}</label>
+    <input id="q" name="q" type="search" value="{{ f_q }}">
+  </div>
+  <div class="filter-actions">
+    <button type="submit" class="btn">{{ t('filter') }}</button>
+    <a class="btn btn-secondary" href="{{ url_for('dashboard') }}">{{ t('clear') }}</a>
+  </div>
+</form>
+
+<section class="card table-wrap">
+  {% if rows %}
+  <table>
+    <thead>
+      <tr>
+        <th>{{ t('request_no') }}</th>
+        <th>{{ t('opened') }}</th>
+        <th>{{ t('category') }}</th>
+        <th>{{ t('subcategory') }}</th>
+        <th>{{ t('status') }}</th>
+        <th>{{ t('last_update') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      {% set st = status_info(r.status) %}
+      <tr class="clickable" data-href="{{ url_for('request_detail', request_id=r.id) }}">
+        <td><a href="{{ url_for('request_detail', request_id=r.id) }}">{{ request_no(r.id) }}</a></td>
+        <td>{{ fmt_date(r.created_at) }}</td>
+        <td>{{ category_name(r.category) }}</td>
+        <td>{{ sub_name(r.category, r.subcategory) }}</td>
+        <td><span class="badge" style="background: {{ st.color }}">{{ st.name }}</span></td>
+        <td>{{ fmt_date(r.updated_at) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">{{ t('no_requests') }}</p>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
