@@ -229,6 +229,19 @@ def create_app(db_path=None, airtable_client_factory=None):
             flash("updated_field_missing")
         return redirect(url_for("admin_airtable"))
 
+    @app.route("/admin/airtable/load-demo", methods=["POST"])
+    def admin_airtable_load_demo():
+        require_admin()
+        source = store()
+        if source.name != "airtable":
+            return redirect(url_for("admin_airtable"))
+        if source.has_requests_for(db.DEMO_PHONES):
+            flash("demo_exists")
+        else:
+            source.create_many(db.demo_requests_oldest_first())
+            flash("demo_loaded")
+        return redirect(url_for("admin_airtable"))
+
     @app.route("/admin/airtable/disconnect", methods=["POST"])
     def admin_airtable_disconnect():
         require_admin()

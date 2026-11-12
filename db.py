@@ -73,6 +73,14 @@ DEMO_REQUESTS = [
 ]
 
 
+def demo_requests_oldest_first():
+    """Demo requests as (phone, category, subcategory, description, current_status),
+    oldest first, so that numbered ids follow creation order."""
+    ordered = sorted(DEMO_REQUESTS, key=lambda r: -r[4][0][1])
+    return [(phone, cat, sub, desc, history[-1][0])
+            for phone, cat, sub, desc, history in ordered]
+
+
 def now_iso():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 

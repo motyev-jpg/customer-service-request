@@ -39,6 +39,10 @@ class FakeClient:
         self.formulas.append(formula)
         return self.records
 
+    def create_records(self, base_id, fields_list):
+        self.created_many = fields_list
+        return [{"id": f"rec{i}", "fields": f} for i, f in enumerate(fields_list)]
+
     def create_record(self, base_id, fields):
         self.created.append(fields)
         return {"id": "recX", "fields": {"RequestID": 42, **fields}}
@@ -175,6 +179,49 @@ def test_airtable_outage_shows_generic_message(client, fake):
     r = client.get("/dashboard")
     html = r.get_data(as_text=True)
     assert r.status_code == 502 and "temporarily unavailable" in html and TOKEN not in html
+
+
+def post_admin(client, path):
+    return client.post(path, follow_redirects=True,
+                       data={"csrf": token_of(client, "/admin/airtable")})
+
+
+def test_load_demo_data_into_airtable(client, fake):
+    connect(client)
+    html = post_admin(client, "/admin/airtable/load-demo").get_data(as_text=True)
+    assert "Demo data was added" in html
+    sent = fake.created_many
+    assert len(sent) == 13
+    assert {r["Phone"] for r in sent} == {"0500000001", "0500000002", "0500000003"}
+    assert all(set(r) == {"Phone", "Category", "Subcategory", "Description", "Status"}
+               for r in sent)
+    first = sent[0]  # the oldest demo request, in its current status
+    assert (first["Category"], first["Subcategory"], first["Status"]) == (
+        "Account", "Access problem", "Closed")
+    assert "OR({Phone}='0500000001'" in fake.formulas[-1]
+
+
+def test_load_demo_is_not_repeated(client, fake):
+    connect(client)
+    fake.records = [record(1)]  # demo data already in the table
+    html = post_admin(client, "/admin/airtable/load-demo").get_data(as_text=True)
+    assert "already in the table" in html and not hasattr(fake, "created_many")
+
+
+def test_load_demo_needs_admin(client, fake):
+    login(client, "0500000001")
+    r = client.post("/admin/airtable/load-demo", data={"csrf": token_of(client)})
+    assert r.status_code == 302 and "/login" in r.headers["Location"]
+    assert not hasattr(fake, "created_many")
+
+
+def test_create_records_batches_of_ten(monkeypatch):
+    bodies = []
+    c = airtable.AirtableClient(TOKEN)
+    monkeypatch.setattr(c, "_request", lambda method, url, body=None: (
+        bodies.append(body), {"records": body["records"]})[1])
+    assert len(c.create_records(BASE, [{"Phone": str(i)} for i in range(13)])) == 13
+    assert [len(b["records"]) for b in bodies] == [10, 3]
 
 
 def test_disconnect_returns_to_local_database(client):

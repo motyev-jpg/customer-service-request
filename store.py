@@ -85,6 +85,17 @@ class AirtableStore:
     def get_history(self, request_id):
         return []
 
+    def has_requests_for(self, phones):
+        formula = "OR(" + ",".join(f"{{Phone}}={formula_str(p)}" for p in phones) + ")"
+        return bool(self._client.list_records(self._base, formula))
+
+    def create_many(self, items):
+        """items: (phone, category_id, subcategory_id, description, status_id)."""
+        return len(self._client.create_records(self._base, [{
+            "Phone": phone, "Category": self._name_by_id[cat],
+            "Subcategory": self._name_by_id[sub], "Description": desc,
+            "Status": self._name_by_id[status]} for phone, cat, sub, desc, status in items]))
+
     def create_request(self, phone, category, subcategory, description):
         record = self._client.create_record(self._base, {
             "Phone": phone, "Category": self._name_by_id[category],

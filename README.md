@@ -22,7 +22,8 @@ By default requests are stored in a local SQLite database. To store them in Airt
 1. In Airtable, create a Personal Access Token with the scopes `data.records:read`, `data.records:write` and `schema.bases:write`, and copy your Workspace ID from the workspace URL (`airtable.com/workspaces/wspXXXX`).
 2. In the dashboard login screen, enter the admin number `543210`. This opens the Airtable settings screen.
 3. Paste the token and Workspace ID and press **Connect and create Base**. A Base named `Service Requests` with a `Requests` table is created and becomes the data source.
-4. Service staff update the `Status` column in Airtable. Customers see the new status the next time they open the dashboard. With Airtable there is no status history, only the current status.
+4. The new Base is empty. To try the dashboard, press **Load demo data into Airtable** on the same screen. It adds the demo requests for the fake phone numbers (`0500000001` to `0500000003`) once.
+5. Service staff update the `Status` column in Airtable. Customers see the new status the next time they open the dashboard. With Airtable there is no status history, only the current status.
 
 The token is stored on the server in `data/settings.json` (not in git) and is never shown again after saving. **Disconnect** on the same screen returns to the local database. The admin number can be changed with `ADMIN_PHONE` in `.env`. It has no password, so use it for demos only.
 

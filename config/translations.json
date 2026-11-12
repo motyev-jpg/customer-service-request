@@ -52,7 +52,12 @@
     "token": "Airtable Personal Access Token",
     "airtable_disconnected": "Disconnected. The dashboard uses the local database again.",
     "staff_note": "Service staff update the Status column in Airtable. Customers see the change the next time they open the dashboard.",
-    "source_sqlite": "Local database (demo)"
+    "source_sqlite": "Local database (demo)",
+    "load_demo": "Load demo data into Airtable",
+    "demo_note": "Adds the demo requests for the fake demo phone numbers. Status history is not kept, and the dates are the time of loading.",
+    "load_demo_confirm": "Add the demo requests to the Airtable table?",
+    "demo_loaded": "Demo data was added to the Airtable table.",
+    "demo_exists": "Demo data is already in the table, so it was not added again."
   },
   "he": {
     "app_title": "בקשות שירות",
@@ -107,6 +112,11 @@
     "token": "Personal Access Token של Airtable",
     "airtable_disconnected": "החיבור נותק. הדשבורד משתמש שוב במסד הנתונים המקומי.",
     "staff_note": "צוות השירות מעדכן את עמודת Status ב-Airtable. הלקוחות רואים את השינוי בפעם הבאה שהם פותחים את הדשבורד.",
-    "source_sqlite": "מסד נתונים מקומי (דמו)"
+    "source_sqlite": "מסד נתונים מקומי (דמו)",
+    "load_demo": "טעינת נתוני דמו ל-Airtable",
+    "demo_note": "מוסיף לטבלה את בקשות הדמו של מספרי הטלפון הבדויים. היסטוריית סטטוסים לא נשמרת, והתאריכים הם זמן הטעינה.",
+    "load_demo_confirm": "להוסיף את בקשות הדמו לטבלה ב-Airtable?",
+    "demo_loaded": "נתוני הדמו נוספו לטבלה ב-Airtable.",
+    "demo_exists": "נתוני הדמו כבר קיימים בטבלה, ולכן לא נוספו שוב."
   }
 }

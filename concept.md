@@ -78,6 +78,7 @@ The user can only view statuses. Changing status is not part of this version.
 - **Connect:** the admin enters an Airtable Personal Access Token (scopes `data.records:read`, `data.records:write`, `schema.bases:write`) and a Workspace ID. The app creates a Base `Service Requests` with a `Requests` table (`RequestID`, `Phone`, `Category`, `Subcategory`, `Description`, `Status`, `Updated`). No existing Base is needed.
 - **Token storage:** on the server only, in `data/settings.json` (not in git). After saving it is shown masked and never sent back to the browser.
 - **Status updates:** service staff change the `Status` column in Airtable, and customers see the change the next time they open the dashboard. Select values use the English names from `config/categories.json`.
+- **Load demo data:** a button on the admin screen adds the 13 demo requests (fake phone numbers) to the Airtable table, after a confirmation. It does not add them twice. Status history is not kept, and the dates are the time of loading.
 - **No status history** when using Airtable: the request page shows only the current status.
 - **Disconnect** returns the dashboard to the local database.
 - The static GitHub Pages demo never connects to Airtable (a browser cannot keep a token secret).

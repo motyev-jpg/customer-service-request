@@ -103,6 +103,15 @@ class AirtableClient:
     def create_record(self, base_id, fields):
         return self._request("POST", f"{API}/{base_id}/{TABLE}", {"fields": fields})
 
+    def create_records(self, base_id, fields_list):
+        """Create many records, 10 per call (the Airtable limit)."""
+        created = []
+        for i in range(0, len(fields_list), 10):
+            res = self._request("POST", f"{API}/{base_id}/{TABLE}", {
+                "records": [{"fields": f} for f in fields_list[i:i + 10]]})
+            created += res.get("records", [])
+        return created
+
 
 def table_schema(cfg):
     """The Requests table. Select options use the English names from config/categories.json."""

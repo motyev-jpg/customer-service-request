@@ -15,6 +15,15 @@
     <dt>Base ID</dt><dd><bdi dir="ltr">{{ base_id }}</bdi></dd>
   </dl>
   <p>{{ t('staff_note') }}</p>
+
+  <h2>{{ t('load_demo') }}</h2>
+  <p>{{ t('demo_note') }}</p>
+  <form method="post" action="{{ url_for('admin_airtable_load_demo') }}"
+        data-confirm="{{ t('load_demo_confirm') }}">
+    <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+    <button type="submit" class="btn">{{ t('load_demo') }}</button>
+  </form>
+
   <form method="post" action="{{ url_for('admin_airtable_disconnect') }}">
     <input type="hidden" name="csrf" value="{{ csrf_token() }}">
     <button type="submit" class="btn btn-secondary">{{ t('disconnect') }}</button>
@@ -41,4 +50,7 @@
     <button type="submit" class="btn btn-secondary">{{ t('logout') }}</button>
   </form>
 </section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 {% endblock %}
