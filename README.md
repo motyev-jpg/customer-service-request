@@ -14,7 +14,7 @@ A general-purpose web dashboard where a customer can see the history and status 
 - **English / Hebrew.** Switch at the top right. Hebrew uses a right-to-left layout and translates categories and statuses too.
 - **Design.** Logo at the top left, light blue background, black lines, brown and purple text.
 - **Mobile friendly.** On narrow screens the requests table becomes a list of cards, and fields and buttons are sized for touch.
-- **Optional Airtable data source.** An admin screen connects the dashboard to Airtable (see below). Service staff can then update request statuses in Airtable.
+- **Optional Airtable data source.** An admin screen connects the dashboard to Airtable (see below). Service staff can then update request statuses in Airtable. The live GitHub Pages demo can connect to the same Base from the browser, and can create a link that connects a teacher's browser.
 
 ## Connect to Airtable (optional)
 
