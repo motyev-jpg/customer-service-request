@@ -71,6 +71,17 @@ The user can only view statuses. Changing status is not part of this version.
 - Demo content: several fake phone numbers, each with a different number of requests, in all statuses, in both Hebrew and English descriptions.
 - New requests submitted in the UI are saved to the same database.
 
+## Airtable connection (Flask app only)
+
+- The dashboard can store its requests in Airtable instead of the local SQLite database.
+- **Admin screen:** logging in with the admin number `543210` (setting `ADMIN_PHONE`, default `543210`) opens `/admin/airtable` instead of the dashboard. There is no separate admin password in this version, and the number is visible in this public repo, so this is suitable for a demo only. Add a password before using real data.
+- **Connect:** the admin enters an Airtable Personal Access Token (scopes `data.records:read`, `data.records:write`, `schema.bases:write`) and a Workspace ID. The app creates a Base `Service Requests` with a `Requests` table (`RequestID`, `Phone`, `Category`, `Subcategory`, `Description`, `Status`, `Updated`). No existing Base is needed.
+- **Token storage:** on the server only, in `data/settings.json` (not in git). After saving it is shown masked and never sent back to the browser.
+- **Status updates:** service staff change the `Status` column in Airtable, and customers see the change the next time they open the dashboard. Select values use the English names from `config/categories.json`.
+- **No status history** when using Airtable: the request page shows only the current status.
+- **Disconnect** returns the dashboard to the local database.
+- The static GitHub Pages demo never connects to Airtable (a browser cannot keep a token secret).
+
 ## Static demo (GitHub Pages)
 
 - A second, browser-only version of the dashboard lives in `docs/` and is published with GitHub Pages from `main`, folder `/docs`, so it can be viewed without installing anything.

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ t('admin_title') }}</h1>
+  <p>{{ t('current_source') }}:
+    <b>{{ t('source_airtable') if connected else t('source_sqlite') }}</b></p>
+
+  {% if error %}
+  <div class="error">{{ t(error) }}{% if error_detail %} <bdi dir="ltr">({{ error_detail }})</bdi>{% endif %}</div>
+  {% endif %}
+
+  {% if connected %}
+  <dl class="details">
+    <dt>{{ t('token') }}</dt><dd><bdi dir="ltr">{{ token_masked }}</bdi></dd>
+    <dt>Base ID</dt><dd><bdi dir="ltr">{{ base_id }}</bdi></dd>
+  </dl>
+  <p>{{ t('staff_note') }}</p>
+  <form method="post" action="{{ url_for('admin_airtable_disconnect') }}">
+    <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-secondary">{{ t('disconnect') }}</button>
+  </form>
+  {% else %}
+  <p>{{ t('admin_intro') }}</p>
+  <form method="post" action="{{ url_for('admin_airtable_connect') }}" autocomplete="off">
+    <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+    <label for="token">{{ t('token') }}</label>
+    <input id="token" name="token" type="password" required dir="ltr" autocomplete="off">
+    <small>{{ t('token_hint') }}</small>
+
+    <label for="workspace_id">{{ t('workspace_id') }}</label>
+    <input id="workspace_id" name="workspace_id" type="text" required dir="ltr"
+           placeholder="wspXXXXXXXXXXXXXX" value="{{ form.workspace_id }}">
+    <small>{{ t('workspace_hint') }}</small>
+
+    <button type="submit" class="btn">{{ t('connect') }}</button>
+  </form>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('logout') }}">
+    <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-secondary">{{ t('logout') }}</button>
+  </form>
+</section>
+{% endblock %}

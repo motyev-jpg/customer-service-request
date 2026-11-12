@@ -15,6 +15,19 @@ A general-purpose web dashboard where a customer can see the history and status 
 - **Design.** Logo at the top left, light blue background, black lines, brown and purple text.
 - **Mobile friendly.** On narrow screens the requests table becomes a list of cards, and fields and buttons are sized for touch.
 
+## Connect to Airtable (optional)
+
+By default requests are stored in a local SQLite database. To store them in Airtable instead:
+
+1. In Airtable, create a Personal Access Token with the scopes `data.records:read`, `data.records:write` and `schema.bases:write`, and copy your Workspace ID from the workspace URL (`airtable.com/workspaces/wspXXXX`).
+2. In the dashboard login screen, enter the admin number `543210`. This opens the Airtable settings screen.
+3. Paste the token and Workspace ID and press **Connect and create Base**. A Base named `Service Requests` with a `Requests` table is created and becomes the data source.
+4. Service staff update the `Status` column in Airtable. Customers see the new status the next time they open the dashboard. With Airtable there is no status history, only the current status.
+
+The token is stored on the server in `data/settings.json` (not in git) and is never shown again after saving. **Disconnect** on the same screen returns to the local database. The admin number can be changed with `ADMIN_PHONE` in `.env`. It has no password, so use it for demos only.
+
+The GitHub Pages demo does not connect to Airtable.
+
 ## Live demo
 
 A static, browser-only version of the dashboard is published with GitHub Pages:
