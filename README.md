@@ -30,7 +30,7 @@ The token is stored on the server in `data/settings.json` (not in git) and is ne
 
 If connecting fails with `0 NETWORK`, check that this computer can reach `api.airtable.com`. On networks or antivirus that inspect HTTPS, Python 3.13+ may reject the inspection certificate in its strict mode. The app already relaxes only that strict check, and it still verifies the certificate chain and host name.
 
-The GitHub Pages demo does not connect to Airtable.
+The GitHub Pages demo can connect to the same Base (see **Live demo** below).
 
 ## Live demo
 
@@ -39,6 +39,8 @@ A static, browser-only version of the dashboard is published with GitHub Pages:
 https://motyev-jpg.github.io/customer-service-request/
 
 It has the same screens, languages and demo data. New requests are saved in your browser only (`localStorage`), and the *Reset demo data* button restores the initial data. Use the demo phone numbers shown on the login screen.
+
+**Optional: connect the live demo to Airtable.** Create the Base from the Flask admin screen first (see above). Then on the demo login screen enter `543210`, and paste an Airtable token and the Base ID. They are saved in your browser only, never in this repository, and the demo then reads and writes requests in Airtable. The same screen creates a link for a teacher (`.../#airtable=<token>,<baseId>`); opening it connects the visitor's browser and removes the token from the address bar. Anyone with the link can read and change that Base, so use a token limited to `data.records:read` and `data.records:write` on a dedicated demo Base, and revoke it afterwards. In this mode there is no status history.
 
 The demo lives in `docs/`. Its data files, CSS and logo are generated from the Flask app, so after changing `config/`, the demo data in `db.py`, or `static/css/style.css`, run:
 

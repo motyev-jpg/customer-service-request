@@ -27,3 +27,13 @@ def test_translation_keys_match_between_languages():
 def test_gitignore_does_not_exclude_docs_data():
     lines = (ROOT / ".gitignore").read_text(encoding="utf-8").split()
     assert "data/" not in lines, "use /data/ so docs/data/ is not ignored"
+
+
+def test_no_airtable_token_in_repo_files():
+    import re
+    pattern = re.compile(r"pat[A-Za-z0-9]{14}\.[a-f0-9]{64}")
+    skip = {".venv", ".git", "data", "__pycache__", ".pytest_cache"}
+    for path in ROOT.rglob("*"):
+        if path.is_file() and not skip & set(path.relative_to(ROOT).parts):
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            assert not pattern.search(text), f"Airtable token found in {path}"

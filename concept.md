@@ -81,13 +81,16 @@ The user can only view statuses. Changing status is not part of this version.
 - **Load demo data:** a button on the admin screen adds the 13 demo requests (fake phone numbers) to the Airtable table, after a confirmation. It does not add them twice. Status history is not kept, and the dates are the time of loading.
 - **No status history** when using Airtable: the request page shows only the current status.
 - **Disconnect** returns the dashboard to the local database.
-- The static GitHub Pages demo never connects to Airtable (a browser cannot keep a token secret).
+- The static GitHub Pages demo can also connect to the same Base (see "Static demo" below). It never has a token built in, because a token in the public repo would be exposed and revoked by Airtable's secret scanning.
 
 ## Static demo (GitHub Pages)
 
 - A second, browser-only version of the dashboard lives in `docs/` and is published with GitHub Pages from `main`, folder `/docs`, so it can be viewed without installing anything.
 - It has the same screens, texts, languages, layout and demo data as the Flask app. The Flask app stays the real implementation.
 - New requests are saved in the browser's `localStorage` only. A "Reset demo data" button restores the initial data. A banner says it is a static demo.
+- **Optional Airtable mode.** Logging in with `543210` in the static demo opens a settings screen where the admin enters a token and the Base ID of an existing Base (created from the Flask admin screen). The values are saved in that browser's `localStorage` only, and the demo then reads and writes requests directly in Airtable (Airtable's API allows calls from the browser).
+- **Link for the teacher.** From the connected settings screen the admin can create a link `.../#airtable=<token>,<baseId>`. Opening it connects the visitor's browser, and the token is removed from the address bar (the fragment is never sent to a server). Anyone with the link can read and change the data in that Base, so the token should be limited to `data.records:read` and `data.records:write` on a dedicated demo Base, and revoked afterwards.
+- In Airtable mode there is no status history and no reset button. Disconnecting returns to the built-in demo data.
 - `docs/data/*`, `docs/css/style.css` and `docs/assets/logo.svg` are generated from the Flask app's config, translations, demo data, CSS and logo by `tools/build_static.py`. A test fails if they are out of date.
 
 ## Out of scope for this version
