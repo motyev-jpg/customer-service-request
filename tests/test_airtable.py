@@ -185,6 +185,35 @@ def test_disconnect_returns_to_local_database(client):
     assert "SR-0001" in client.get("/dashboard").get_data(as_text=True)
 
 
+def test_ssl_context_still_verifies_certificates_and_host():
+    import ssl
+    ctx = airtable.ssl_context()
+    assert ctx.verify_mode == ssl.CERT_REQUIRED and ctx.check_hostname
+    assert not ctx.verify_flags & ssl.VERIFY_X509_STRICT
+
+
+def test_client_passes_ssl_context_to_urlopen(monkeypatch):
+    seen = {}
+
+    class Resp:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return b'{"records": []}'
+
+    def fake_urlopen(req, timeout=None, context=None):
+        seen["context"] = context
+        return Resp()
+
+    monkeypatch.setattr(airtable.urllib.request, "urlopen", fake_urlopen)
+    assert airtable.AirtableClient(TOKEN).list_records(BASE, "1") == []
+    assert seen["context"] is not None
+
+
 def test_formula_string_is_escaped():
     assert airtable.formula_str("a'b\\c") == "'a\\'b\\\\c'"
     assert airtable.formula_str("x\ny") == "'xy'"

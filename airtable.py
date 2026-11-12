@@ -1,6 +1,7 @@
 """Minimal Airtable REST client (standard library only) and the table schema we create."""
 import json
 import re
+import ssl
 import time
 import urllib.error
 import urllib.parse
@@ -40,10 +41,20 @@ def _error_kind(err):
     return re.sub(r"[^A-Za-z0-9_ ]", "", str(kind or ""))[:60]
 
 
+def ssl_context():
+    """Verified TLS context. Only Python's strict X.509 profile is relaxed: networks or
+    antivirus that inspect HTTPS often present a root certificate without an Authority Key
+    Identifier, which Python 3.13+ rejects. Certificate chain and host name stay verified."""
+    ctx = ssl.create_default_context()
+    ctx.verify_flags &= ~ssl.VERIFY_X509_STRICT
+    return ctx
+
+
 class AirtableClient:
     def __init__(self, token, timeout=15):
         self._token = token
         self._timeout = timeout
+        self._ssl = ssl_context()
 
     def _request(self, method, url, body=None):
         data = json.dumps(body).encode("utf-8") if body is not None else None
@@ -52,7 +63,8 @@ class AirtableClient:
             "Content-Type": "application/json"})
         for attempt in range(3):
             try:
-                with urllib.request.urlopen(req, timeout=self._timeout) as resp:
+                with urllib.request.urlopen(req, timeout=self._timeout,
+                                            context=self._ssl) as resp:
                     return json.loads(resp.read().decode("utf-8") or "{}")
             except urllib.error.HTTPError as err:
                 if err.code == 429 and attempt < 2:  # rate limit: 5 requests/second/base

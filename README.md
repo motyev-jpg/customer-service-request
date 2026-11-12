@@ -26,6 +26,8 @@ By default requests are stored in a local SQLite database. To store them in Airt
 
 The token is stored on the server in `data/settings.json` (not in git) and is never shown again after saving. **Disconnect** on the same screen returns to the local database. The admin number can be changed with `ADMIN_PHONE` in `.env`. It has no password, so use it for demos only.
 
+If connecting fails with `0 NETWORK`, check that this computer can reach `api.airtable.com`. On networks or antivirus that inspect HTTPS, Python 3.13+ may reject the inspection certificate in its strict mode. The app already relaxes only that strict check, and it still verifies the certificate chain and host name.
+
 The GitHub Pages demo does not connect to Airtable.
 
 ## Live demo
