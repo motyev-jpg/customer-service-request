@@ -56,7 +56,7 @@ a { color: var(--accent); }
 
 /* Forms */
 label { display: block; margin: 14px 0 4px; font-weight: 600; }
-input[type=text], input[type=tel], select, textarea {
+input[type=text], input[type=tel], input[type=password], select, textarea {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--line);
@@ -82,6 +82,7 @@ textarea { resize: vertical; }
 .btn:hover { filter: brightness(1.12); }
 .btn-secondary { background: #fff; color: var(--accent); }
 .inline { display: inline; }
+small { display: block; margin-top: 4px; font-size: 0.85rem; }
 
 .error, .notice {
   padding: 10px 14px;
@@ -149,7 +150,7 @@ tr.clickable:hover { background: #d4ecfa; }
   .card { padding: 14px; }
 
   /* 16px+ fields prevent iOS zoom on focus; 44px touch targets */
-  input[type=text], input[type=tel], select, textarea { font-size: 16px; min-height: 44px; }
+  input[type=text], input[type=tel], input[type=password], select, textarea { font-size: 16px; min-height: 44px; }
   .btn, .chip, .lang-switch a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
   .lang-switch a { min-height: 36px; padding: 4px 10px; }
 

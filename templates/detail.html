@@ -18,6 +18,7 @@
     <dd class="description">{{ r.description if r.description else t('no_description') }}</dd>
   </dl>
 
+  {% if history is not none %}
   <h2>{{ t('status_history') }}</h2>
   <ol class="timeline">
     {% for h in history %}
@@ -28,6 +29,7 @@
     </li>
     {% endfor %}
   </ol>
+  {% endif %}
 
   <a class="btn btn-secondary" href="{{ url_for('dashboard') }}">{{ t('back') }}</a>
 </section>

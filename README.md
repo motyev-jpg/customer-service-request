@@ -8,12 +8,29 @@ A general-purpose web dashboard where a customer can see the history and status 
 
 - **Login by phone number.** The phone number is the user ID. Demo numbers are shown on the login screen.
 - **My requests.** Centered title, with the *New request* button on the left and *Log out* on the right (in both languages). Below, a table of all the user's requests (newest first) with category, sub-category, status and dates.
-  - Click a request to see its details and status history.
+  - Click a request to see its details and status history (the history is kept only in the local database, not in Airtable).
   - No filters or statistics in this version.
 - **New request.** Category and sub-category from built-in lists (required), plus an optional free description. Requests start with status *Open* and cannot be edited after sending.
 - **English / Hebrew.** Switch at the top right. Hebrew uses a right-to-left layout and translates categories and statuses too.
 - **Design.** Logo at the top left, light blue background, black lines, brown and purple text.
 - **Mobile friendly.** On narrow screens the requests table becomes a list of cards, and fields and buttons are sized for touch.
+- **Optional Airtable data source.** An admin screen connects the dashboard to Airtable (see below). Service staff can then update request statuses in Airtable.
+
+## Connect to Airtable (optional)
+
+By default requests are stored in a local SQLite database. To store them in Airtable instead:
+
+1. In Airtable, create a Personal Access Token with the scopes `data.records:read`, `data.records:write` and `schema.bases:write`, and copy your Workspace ID from the workspace URL (`airtable.com/workspaces/wspXXXX`).
+2. In the dashboard login screen, enter the admin number `543210`. This opens the Airtable settings screen.
+3. Paste the token and Workspace ID and press **Connect and create Base**. A Base named `Service Requests` with a `Requests` table is created and becomes the data source.
+4. The new Base is empty. To try the dashboard, press **Load demo data into Airtable** on the same screen. It adds the demo requests for the fake phone numbers (`0500000001` to `0500000003`) once.
+5. Service staff update the `Status` column in Airtable. Customers see the new status the next time they open the dashboard. With Airtable there is no status history, only the current status.
+
+The token is stored on the server in `data/settings.json` (not in git) and is never shown again after saving. **Disconnect** on the same screen returns to the local database. The admin number can be changed with `ADMIN_PHONE` in `.env`. It has no password, so use it for demos only.
+
+If connecting fails with `0 NETWORK`, check that this computer can reach `api.airtable.com`. On networks or antivirus that inspect HTTPS, Python 3.13+ may reject the inspection certificate in its strict mode. The app already relaxes only that strict check, and it still verifies the certificate chain and host name.
+
+The GitHub Pages demo does not connect to Airtable.
 
 ## Live demo
 
@@ -67,6 +84,9 @@ Run the tests:
 ```
 app.py            Flask app and routes
 db.py             SQLite access and demo data
+store.py          Data sources: local SQLite or Airtable
+airtable.py       Airtable REST client and table schema
+settings.py       Server-side settings file (Airtable token)
 config/           Categories, statuses, translations
 templates/        HTML templates
 static/           CSS, JavaScript, logo
